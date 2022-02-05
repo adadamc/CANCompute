@@ -5,8 +5,17 @@ from tkinter import filedialog
 import tkinter
 from turtle import position # sudo apt-get install python3-tk
 import ocrmypdf
+import tabula
 
 window = Tk() # Making the GUI Window
+
+
+def convertFile(paths):
+    for x in range(0, len(paths)):
+        df = tabula.read_pdf(paths[x], multiple_tables=True, pages='all', guess=False) # Converts PDF to put info in a DataFrame
+        print("df: ", df)
+
+        window.deiconify() # Makes the GUI window visible
 
 def makeFilesReadable(filePaths):
     validPaths = [] # Array of pdf files
@@ -23,8 +32,8 @@ def makeFilesReadable(filePaths):
         if __name__ == '__main__':  # To ensure correct behavior on Windows and macOS
             try:
                 ocrmypdf.ocr(x, x, deskew=True, force_ocr=False)
-                conversions = conversions + 1
                 print("Converted", x, "using ocrmypdf with a total of", conversions, "conversions.")
+                conversions = conversions + 1
             except:
                 print("The following file caused ocrmypdf to error (may already have readable text)", x)
 
@@ -39,7 +48,9 @@ def makeFilesReadable(filePaths):
     print("Of the", len(validPaths), "valid files, the following number have been converted to have machine readable text through ocrmypdf:", conversions)
     print("Of the", len(validPaths), "valid files, the following had an error (may already have readable text):", (len(validPaths) - conversions))
 
-    window.deiconify() # Makes the GUI window visible
+    convertFile(validPaths)
+
+
 
 
 def selectFiles():
@@ -81,3 +92,4 @@ def showMenu():
 
 
 showMenu() # Shows the initial menu
+
