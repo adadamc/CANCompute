@@ -12,6 +12,7 @@ import re
 from pathlib import Path
 
 window = Tk()  # Making the GUI Window
+
 def has_num(inputString):
     inputString = re.sub('[\,\$\%\(\)\-\+ \.]', '', str(inputString))
     return bool(re.search(r'\d\n\d', inputString))
@@ -22,35 +23,26 @@ def noTextPage(paths):
         doc = fitz.open(p)
         j=0
         page_num = list(range(len(doc)))
+        pagesSaved = 0
 
         for page in doc:
             a = page.get_text('blocks')
             count = 0
             for i in range(0, len(a) - 1):
-                print("ai4:",a[i][4])
                 if has_num(a[i][4]):
                     if count == 2:
                         page_num.remove(page.number)
+                        pagesSaved = pagesSaved + 1
                         break
                     count += 1
-            print('fin')
         doc.delete_pages(page_num)
-        doc.save(str(p[:len(p)-4]) + "_Short.pdf")
+        if pagesSaved > 0:
+            doc.save(str(p[:len(p)-4]) + "_Short.pdf")
+        else:
+            print("NOTICE:Could not find any pages that are believed to be financial documents")
         doc.close
         j+=1
     window.deiconify()  # Makes the GUI window visible
-
-def convertFile(paths):
-    for x in range(0, len(paths)):
-        df = tabula.read_pdf(paths[x], multiple_tables=True, pages='all',
-                             guess=False)  # Converts PDF to put info in a DataFrame
-        print("df: ", df)
-        i = 1
-        for t in df:
-            print(i)
-            t.to_csv('output' + str(i) + '.csv', encoding='utf-8')
-            i += 1
-        window.deiconify()  # Makes the GUI window visible
 
 def makeFilesReadable(filePaths):
     validPaths = []  # Array of pdf files
@@ -81,7 +73,6 @@ def makeFilesReadable(filePaths):
           conversions)
     print("Of the", len(validPaths), "valid files, the following had an error (may already have readable text):",
           (len(validPaths) - conversions))
-    #convertFile(validPaths)
     noTextPage(validPaths)
 
     
@@ -105,7 +96,7 @@ def selectDirectory():
 # Show the menu once the code runs
 def showMenu():
     window.geometry("400x100")
-    window.title("File Selection")
+    window.title("CANCompute - File Selection")
     label = Label(window,
                   text="Extract info from PDF file(s) to json")  # Instructions telling user to select a file or directory
     label.pack()
