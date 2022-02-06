@@ -11,8 +11,8 @@
 CANCompute allows the user to convert most PDFs containing financial information and convert it to a shorter PDF containing only the relevant tables which are improved to include optical character recognition
 
 ## What an Updated Version of this Program Could do
->If given extra time in the future we would consider implementing the following:\
-Convert a PDF containing financial information (such as balance sheets) to formats such as json and csv
+If given extra time in the future we would consider implementing the following:
+>Convert a PDF containing financial information (such as balance sheets) to formats such as json and csv
 
 >Improved User Interface that could notify the user when the task is done (currently if everything is completed correctly the only way to know is the fact that the interface re-appears)
 
