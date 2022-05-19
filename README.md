@@ -2,6 +2,7 @@
 
 ## Table of Contents
 - [Description](#description)
+- [Test Files](#test-files)
 - [What an Updated Version of this Program Could do](#what-an-updated-version-of-this-program-could-do)
 - [Developers](#developers)
 	- [Background](#background)
@@ -9,6 +10,9 @@
 
 ## Description
 CANCompute allows the user to convert most PDFs containing financial information and convert it to a shorter PDF containing only the relevant tables which are improved to include optical character recognition
+
+## Test Files
+PDF files for this challenge can be found here: https://github.com/ferna11i/CanDev_Scanned_Documents
 
 ## What an Updated Version of this Program Could do
 If given extra time in the future we would consider implementing the following:
