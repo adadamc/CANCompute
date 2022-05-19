@@ -38,6 +38,7 @@ def noTextPage(paths, shortened=False):
         theYears = []
         currentTitle = ""
         lastLineYears = False # checking if the previous line had a year value
+        oneYearFound = False # Do not start adding to json until a year has been found
 
         pt = Path(p)
         doc = fitz.open(p)
@@ -55,18 +56,21 @@ def noTextPage(paths, shortened=False):
                     theArr = a[i][4].split("\n")
                     amtOfNums = 0
                     unknownYears = 0
+
                     for z in theArr:
-                        if is_year(z):
+                        if is_year(z) or yearsOnThisLine == True:
                             print("Year value found: ", z)
                             if(lastLineYears == False):
                                 theYears.clear()
                             theYears.append(z)
                             yearsOnThisLine = True
                             lastLineYears = True
+                            oneYearFound = True
                         elif is_word(z):
                             print("Word value found: ", z)
                             currentTitle = z
-                        elif is_money(z):
+                            amtOfNums = 0
+                        elif oneYearFound == True and is_money(z):
                             print("Num value found: ", z)
                             if not (str(currentTitle) in jsondata):
                                 jsondata[str(currentTitle)] = {}
@@ -76,8 +80,12 @@ def noTextPage(paths, shortened=False):
                                 unknownYears = unknownYears + 1
                                 jsondata[str(currentTitle)]['unknownYear' + str(unknownYears)] = str(z)
                             else:
-                                jsondata[str(currentTitle)][str(theYears[amtOfNums])] = str(z)
-                                print("Outer key: ", str(currentTitle), " with inner key: ", str(theYears[amtOfNums]), " with value: ", str(z))
+                                if str(theYears[amtOfNums]) in jsondata[str(currentTitle)]:
+                                    jsondata[str(currentTitle)][str(theYears[amtOfNums]) + "-" + str(amtOfNums)] = str(z)
+                                    print("SAME KEY [APPENDED NUMBER TO KEY] Outer key: ", str(currentTitle), " with inner key: ", str(theYears[amtOfNums]), " with value: ", str(z))
+                                else:
+                                    jsondata[str(currentTitle)][str(theYears[amtOfNums])] = str(z)
+                                    print("Outer key: ", str(currentTitle), " with inner key: ", str(theYears[amtOfNums]), " with value: ", str(z))
                             amtOfNums = amtOfNums + 1
                         else:
                             print("Unknown: ", z)
