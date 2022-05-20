@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Description](#description)
 - [Test Files](#test-files)
-- [What an Updated Version of this Program Could do](#old-version)
+- [Old Version](#old-version)
 - [Developers](#developers)
 	- [Background](#background)
 	- [Team Members](#team-members)
