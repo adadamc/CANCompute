@@ -3,22 +3,19 @@
 ## Table of Contents
 - [Description](#description)
 - [Test Files](#test-files)
-- [What an Updated Version of this Program Could do](#what-an-updated-version-of-this-program-could-do)
+- [What an Updated Version of this Program Could do](#old-version)
 - [Developers](#developers)
 	- [Background](#background)
 	- [Team Members](#team-members)
 
 ## Description
-CANCompute allows the user to convert most PDFs containing financial information and convert it to a shorter PDF containing only the relevant tables which are improved to include optical character recognition
+CANCompute allows the user to upload a PDF financial document and in turn it make the text machine-readable, filter out pages without numerical tables, and convert data to a json file.
 
 ## Test Files
 PDF files for this challenge can be found here: https://github.com/ferna11i/CanDev_Scanned_Documents
 
-## What an Updated Version of this Program Could do
-If given extra time in the future we would consider implementing the following:
->Convert a PDF containing financial information (such as balance sheets) to formats such as json and csv
-
->Improved User Interface that could notify the user when the task is done (currently if everything is completed correctly the only way to know is the fact that the interface re-appears)
+## Old Version
+This was developed as part of the CANDEV 2022 event, the original submission can be found here: https://github.com/adadamc/Data-With-Destiny-CANDEV-project , I have since added to the project in this repository. More information can be found here: https://adadamc.ca/cancompute
 
 ## Developers
 ### Background
